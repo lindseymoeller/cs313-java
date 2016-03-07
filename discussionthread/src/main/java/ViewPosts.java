@@ -68,7 +68,7 @@ public class ViewPosts extends HttpServlet {
         PostDataHandler handler = new FilePostHandler("posts.txt");
   request.setAttribute("posts", handler.getFavoritePosts());
 
-  request.getRequestDispatcher("ViewPosts.jsp").forward(request, response);
+  request.getRequestDispatcher("/discussionthread/ViewPosts.jsp").forward(request, response);
 }
 
     /**
