@@ -64,6 +64,7 @@ public class ViewPosts extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         PostDataHandler handler = new FilePostHandler("posts.txt");
   request.setAttribute("posts", handler.getFavoritePosts());
 

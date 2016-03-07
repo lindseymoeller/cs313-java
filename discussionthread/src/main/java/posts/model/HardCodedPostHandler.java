@@ -18,9 +18,6 @@ public class HardCodedPostHandler implements PostDataHandler {
     public List<Post> getFavoritePosts() {
         List<Post> posts = new ArrayList<Post>();
         
-        posts.add(new Post("Post 1"));
-        posts.add(new Post("Post 2"));
-        
         return posts;
     }
 }

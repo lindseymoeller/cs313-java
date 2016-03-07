@@ -19,6 +19,7 @@
         <form action="CreatePost" method="post">
             <textarea rows="4" cols="50" name="txtpost"></textarea>
             <br>
+            <p>Date: <input type="text" name="date"></p>
            <button type="submit">Post</button>
         </form>
     </body>

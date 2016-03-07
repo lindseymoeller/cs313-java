@@ -21,6 +21,7 @@ public class Post {
     
     public Post(String text) {
         this.setText(text);
+
     }
    
     public String getText() {

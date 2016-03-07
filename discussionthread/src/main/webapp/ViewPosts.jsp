@@ -19,10 +19,13 @@
     <body>
         <h1>View Posts Page</h1>
             <div>  
-                <h3>Posts:</h3><br/>
+                <h3>Posts</h3><br/>
                 <c:forEach var="post" items="${posts}">
-        ${post}<br /><br/>
-</c:forEach>
+                    Posted By: ${username} <br>
+                    On: ${date}  <br>
+                    Post: ${post.text} <br><br><br>
+                   
+     </c:forEach>
             </div>
         <a href="newPost.jsp">New Post</a>
     </body>
