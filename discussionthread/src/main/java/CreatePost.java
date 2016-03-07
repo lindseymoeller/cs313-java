@@ -80,7 +80,7 @@ public class CreatePost extends HttpServlet {
         
         FilePostHandler handler = new FilePostHandler("posts.txt");
         handler.addPost(newPost);
-        response.sendRedirect("ViewPosts");
+        response.sendRedirect("discussionthread/ViewPosts");
     }
 
     /**
