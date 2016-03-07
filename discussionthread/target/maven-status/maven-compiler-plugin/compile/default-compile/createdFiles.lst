@@ -1,0 +1,7 @@
+posts\model\FilePostHandler.class
+ViewPosts.class
+posts\model\HardCodedPostHandler.class
+posts\model\Post.class
+posts\model\PostDataHandler.class
+CreatePost.class
+SignIn.class
