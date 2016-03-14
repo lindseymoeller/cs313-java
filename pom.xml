@@ -78,4 +78,7 @@
 			</build>
 		</profile>
 	</profiles>
+    <modules>
+        <module>email</module>
+    </modules>
 </project>
