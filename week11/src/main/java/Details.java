@@ -75,8 +75,7 @@ public class Details extends HttpServlet {
          
            String dbname = "week11";
            
-           Connection conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + "week11", "adminvGHXXNN", "4WJLFgC9pttk");
-           
+          Connection conn = DriverManager.getConnection("jdbc:mysql://127.10.211.130:3306/week11", "adminvGHXXNN", "4WJLFgC9pttk");           
            
            Statement stmt = conn.createStatement();
            String sql = "SELECT first, last, birthday FROM people WHERE id = " + request.getParameter("id");
