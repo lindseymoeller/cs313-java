@@ -99,6 +99,17 @@ public class Servlet1 extends HttpServlet {
                persons.add(details);
            }
            
+           
+            System.out.println("<!DOCTYPE html>");
+            System.out.println("<html>");
+            System.out.println("<head>");
+            System.out.println("<title>Person</title>");            
+            System.out.println("</head>");
+            System.out.println("<body>");
+            System.out.println("<h1>" + persons.get(0) + "</h1>");
+            System.out.println("</body>");
+            System.out.println("</html>");
+           
            request.setAttribute("persons", persons);
            request.getRequestDispatcher("person_list.jsp").forward(request,response);
        } catch (ClassNotFoundException | SQLException ex) {

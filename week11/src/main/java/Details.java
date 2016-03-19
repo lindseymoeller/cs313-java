@@ -79,8 +79,6 @@ public class Details extends HttpServlet {
         } else {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/week11", "root", "LurchP0w3rcat");
                 }
-
-// Connection conn = DriverManager.getConnection("jdbc:mysql://127.10.211.130:3306/week11", "adminvGHXXNN", "4WJLFgC9pttk");
             
            
            Statement stmt = conn.createStatement();
