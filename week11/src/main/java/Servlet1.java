@@ -86,7 +86,7 @@ public class Servlet1 extends HttpServlet {
            String sql = "SELECT id, first, last, birthday FROM people";
            
            ResultSet rs = stmt.executeQuery(sql);
-           
+        
            //List persons = new ArrayList();
            
            ArrayList<ArrayList> persons = new ArrayList<ArrayList>();
@@ -97,12 +97,26 @@ public class Servlet1 extends HttpServlet {
                details.add(rs.getString("first"));
                details.add(rs.getString("last"));
                persons.add(details);
+               
+                 rs.next();
+            try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet1</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>" + rs.getString("first") + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
            }
-           
+                     
        
            request.setAttribute("persons", persons);
            //response.sendRedirect("person_list.jsp");
-           request.getRequestDispatcher("/person_list.jsp").forward(request,response);
+           request.getRequestDispatcher("person_list.jsp").forward(request,response);
        } catch (ClassNotFoundException | SQLException ex) {
            Logger.getLogger(Servlet1.class.getName()).log(Level.SEVERE, null, ex);
        }
