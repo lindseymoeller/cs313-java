@@ -75,8 +75,7 @@ public class Details extends HttpServlet {
            Connection conn;
            
            if (host != null) {
-              conn = DriverManager.getConnection("jdbc:mysql://127.10.211.130:3306/week11", "adminvGHXXNN", "4WJLFgC9pttk");  
-           //conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/week11", username, password);
+           conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/week11", username, password);
         } else {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/week11", "root", "LurchP0w3rcat");
                 }

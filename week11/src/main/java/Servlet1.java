@@ -77,7 +77,7 @@ public class Servlet1 extends HttpServlet {
            Connection conn;
            
            if (host != null) {
-           conn = DriverManager.getConnection("jdbc:mysql://127.10.211.130:3306/week11", "adminvGHXXNN", "4WJLFgC9pttk");
+           conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/week11", username, password);
         } else {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/week11", "root", "LurchP0w3rcat");
                 }
@@ -85,29 +85,7 @@ public class Servlet1 extends HttpServlet {
            Statement stmt = conn.createStatement();
            String sql = "SELECT id, first, last, birthday FROM people";
            
-           
-            ResultSet rs = stmt.executeQuery(sql);
-           rs.next();
-               try (PrintWriter out = response.getWriter()) {
-           /* TODO output your page here. You may use following sample code. */
-           out.println("<!DOCTYPE html>");
-           out.println("<html>");
-           out.println("<head>");
-           out.println("<title>Person</title>");            
-           out.println("</head>");
-           out.println("<body>");
-           out.println("<h1>" + rs.getString("first") + "</h1>");
-           out.println("</body>");
-           out.println("</html>");
-            }
-               
-                  } catch (ClassNotFoundException | SQLException ex) {
-           Logger.getLogger(Servlet1.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    }
-
-               
-/*           ResultSet rs = stmt.executeQuery(sql);
+           ResultSet rs = stmt.executeQuery(sql);
            
            //List persons = new ArrayList();
            
@@ -123,7 +101,8 @@ public class Servlet1 extends HttpServlet {
            
        
            request.setAttribute("persons", persons);
-           request.getRequestDispatcher("person_list.jsp").forward(request,response);
+           //response.sendRedirect("person_list.jsp");
+           request.getRequestDispatcher("/person_list.jsp").forward(request,response);
        } catch (ClassNotFoundException | SQLException ex) {
            Logger.getLogger(Servlet1.class.getName()).log(Level.SEVERE, null, ex);
        }
