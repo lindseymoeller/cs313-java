@@ -85,7 +85,29 @@ public class Servlet1 extends HttpServlet {
            Statement stmt = conn.createStatement();
            String sql = "SELECT id, first, last, birthday FROM people";
            
-           ResultSet rs = stmt.executeQuery(sql);
+           
+            ResultSet rs = stmt.executeQuery(sql);
+           rs.next();
+               try (PrintWriter out = response.getWriter()) {
+           /* TODO output your page here. You may use following sample code. */
+           out.println("<!DOCTYPE html>");
+           out.println("<html>");
+           out.println("<head>");
+           out.println("<title>Person</title>");            
+           out.println("</head>");
+           out.println("<body>");
+           out.println("<h1>" + rs.getString("first") + "</h1>");
+           out.println("</body>");
+           out.println("</html>");
+            }
+               
+                  } catch (ClassNotFoundException | SQLException ex) {
+           Logger.getLogger(Servlet1.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }
+
+               
+/*           ResultSet rs = stmt.executeQuery(sql);
            
            //List persons = new ArrayList();
            
@@ -99,17 +121,7 @@ public class Servlet1 extends HttpServlet {
                persons.add(details);
            }
            
-           
-            System.out.println("<!DOCTYPE html>");
-            System.out.println("<html>");
-            System.out.println("<head>");
-            System.out.println("<title>Person</title>");            
-            System.out.println("</head>");
-            System.out.println("<body>");
-            System.out.println("<h1>" + persons.get(0) + "</h1>");
-            System.out.println("</body>");
-            System.out.println("</html>");
-           
+       
            request.setAttribute("persons", persons);
            request.getRequestDispatcher("person_list.jsp").forward(request,response);
        } catch (ClassNotFoundException | SQLException ex) {
