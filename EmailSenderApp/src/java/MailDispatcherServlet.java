@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
+import ejb.MailSenderBean;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +18,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lindsey
  */
-@WebServlet(urlPatterns = {"/SendEmail"})
-public class SendEmail extends HttpServlet {
+@WebServlet(urlPatterns = {"/MailDispatcherServlet"})
+public class MailDispatcherServlet extends HttpServlet {
 
+    @EJB
+    private MailSenderBean mailSender;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,19 +35,28 @@ public class SendEmail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-              
+        
+        String toEmail = request.getParameter("email");
+        String subject = request.getParameter("subject");
+        String message = request.getParameter("message");
+        
+        String fromEmail = "moellerlinds@gmail.com";
+        String username = "moellerlinds";
+        String password = "dont4get?";
+        
         try (PrintWriter out = response.getWriter()) {
+            
+            mailSender.sendEmail(fromEmail, username, password, toEmail, subject, message);
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Email sent</title>");            
+            out.println("<title>Mail Status</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Success</h1>");
-            out.println("<p>Your message was sent successfully</p>");
-            out.println("<p>To send another email, "
-                     + "click <a href='form.jsp'>here</a></p>");
+            out.println("<h1>Mail Status</h1>");
+            out.println("<p>Mail sent successfully</p>");
+            out.println("Click <a href='emailClient.jsp'>here</a> to send another email");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +74,7 @@ public class SendEmail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/success.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -76,16 +89,6 @@ public class SendEmail extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        String email = request.getParameter("email");
-        String subject = request.getParameter("subject");
-        String message = request.getParameter("message");
-        
-        String from = "moellerlinds@gmail.com";
-        String username = "moellerlinds";
-        String password = "dont4get?";
-        
-        mail.sendMail(email, subject, message, from, username, password);
     }
 
     /**

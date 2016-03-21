@@ -1,6 +1,6 @@
 <%-- 
-    Document   : form
-    Created on : Mar 9, 2016, 11:08:19 PM
+    Document   : emailClient
+    Created on : Mar 20, 2016, 10:36:35 AM
     Author     : Lindsey
 --%>
 
@@ -9,39 +9,44 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Send Email</title>
+        <title>Email Client</title>
     </head>
     <body>
-        <h1>Send an Email</h1>
-        <form action="SendEmail" method="post">
+        <h1>Contact Us</h1>
+        <form action="MailDispatcherServlet" method="post">
             <table>
                 <tr>
                     <td>
-                        To:
+                        <b>To:</b>
                     </td>
                     <td>
-                        <input type="text" name="email" size="40" placeholder="email address"/><br>
+                        <input type="text" name="email">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Subject:
+                        <b>Subject:</b>
                     </td>
                     <td>
-                       <input type="text" name="subject" size="40" placeholder="subject"/><br> 
+                        <input type="text" name="subject">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        Message:  
+                        <b>Message:</b>
                     </td>
                     <td>
-                        <textarea rows="8" cols="50" name="message" placeholder="message..."></textarea>
+                        <textarea name="message"></textarea>
                     </td>
                 </tr>
-           </table>
-            <br>
-           <button type="submit">Send Email</button>
+                  <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <input type="submit" value="Send">
+                    </td>
+                </tr>
+            </table>
         </form>
     </body>
 </html>
