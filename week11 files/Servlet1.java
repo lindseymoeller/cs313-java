@@ -3,10 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package edu.byui.mavenproject1;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import static java.lang.System.getenv;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Lindsey
+ * @author Timothy
  */
-@WebServlet(name = "calculations", urlPatterns = {"/computeSum"})
-public class computeSum extends HttpServlet {
+@WebServlet(urlPatterns = {"/Servlet1"})
+public class Servlet1 extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +46,10 @@ public class computeSum extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet computeSum</title>");            
+            out.println("<title>Servlet Servlet1</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet computeSum at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Servlet1 at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,7 +67,48 @@ public class computeSum extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+           Class.forName("com.mysql.jdbc.Driver");
+             
+           String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
+           String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
+           String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
+           String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
+           Connection conn;
+           
+           //Connection conn = DriverManager.getConnection("jdbc:mysql://127.10.211.130:3306/week11", "adminvGHXXNN", "4WJLFgC9pttk");
+           
+           if (host != null) {
+           conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/week11", username, password);
+        } else {
+                conn = DriverManager.getConnection("jdbc:mysql://localhost/week11", "root", "LurchP0w3rcat");
+                }
+           
+           Statement stmt = conn.createStatement();
+           String sql = "SELECT id, first, last, birthday FROM people";
+           
+           ResultSet rs = stmt.executeQuery(sql);
+           
+  
+           //List persons = new ArrayList();
+           
+           ArrayList<ArrayList> persons = new ArrayList<ArrayList>();
+           
+           while (rs.next()) {
+               ArrayList details = new ArrayList();
+               details.add(rs.getInt("id"));
+               details.add(rs.getString("first"));
+               details.add(rs.getString("last"));
+               persons.add(details);
+           }
+                     
+       
+           request.setAttribute("persons", persons);
+           //response.sendRedirect("person_list.jsp");
+           request.getRequestDispatcher("person_list.jsp").forward(request,response);
+       } catch (ClassNotFoundException | SQLException ex) {
+           Logger.getLogger(Servlet1.class.getName()).log(Level.SEVERE, null, ex);
+       }
     }
 
     /**

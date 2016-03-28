@@ -6,14 +6,12 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.getenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -26,8 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Timothy
  */
-@WebServlet(urlPatterns = {"/Servlet1"})
-public class Servlet1 extends HttpServlet {
+@WebServlet(urlPatterns = {"/Details"})
+public class Details extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +44,10 @@ public class Servlet1 extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Servlet1</title>");            
+            out.println("<title>Servlet Details</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Servlet1 at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Details at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,43 +67,40 @@ public class Servlet1 extends HttpServlet {
             throws ServletException, IOException {
         try {
            Class.forName("com.mysql.jdbc.Driver");
-             
+            
            String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
            String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
            String username = System.getenv("OPENSHIFT_MYSQL_DB_USERNAME");
            String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
            Connection conn;
            
-           //Connection conn = DriverManager.getConnection("jdbc:mysql://127.10.211.130:3306/week11", "adminvGHXXNN", "4WJLFgC9pttk");
-           
            if (host != null) {
            conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/week11", username, password);
         } else {
                 conn = DriverManager.getConnection("jdbc:mysql://localhost/week11", "root", "LurchP0w3rcat");
                 }
+
+// Connection conn = DriverManager.getConnection("jdbc:mysql://127.10.211.130:3306/week11", "adminvGHXXNN", "4WJLFgC9pttk");
+            
            
            Statement stmt = conn.createStatement();
-           String sql = "SELECT id, first, last, birthday FROM people";
+           String sql = "SELECT first, last, birthday FROM people WHERE id = " + request.getParameter("id");
            
            ResultSet rs = stmt.executeQuery(sql);
-           
-  
-           //List persons = new ArrayList();
-           
-           ArrayList<ArrayList> persons = new ArrayList<ArrayList>();
-           
-           while (rs.next()) {
-               ArrayList details = new ArrayList();
-               details.add(rs.getInt("id"));
-               details.add(rs.getString("first"));
-               details.add(rs.getString("last"));
-               persons.add(details);
-           }
-                     
-       
-           request.setAttribute("persons", persons);
-           //response.sendRedirect("person_list.jsp");
-           request.getRequestDispatcher("person_list.jsp").forward(request,response);
+           rs.next();
+               try (PrintWriter out = response.getWriter()) {
+           /* TODO output your page here. You may use following sample code. */
+           out.println("<!DOCTYPE html>");
+           out.println("<html>");
+           out.println("<head>");
+           out.println("<title>Person</title>");            
+           out.println("</head>");
+           out.println("<body>");
+           out.println("<h1>" + rs.getString("first") + " " + rs.getString("last") + " " + rs.getString("birthday") + "</h1>");
+           out.println("</body>");
+           out.println("</html>");
+            }
+               
        } catch (ClassNotFoundException | SQLException ex) {
            Logger.getLogger(Servlet1.class.getName()).log(Level.SEVERE, null, ex);
        }

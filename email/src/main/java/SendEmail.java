@@ -4,13 +4,24 @@
  * and open the template in the editor.
  */
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.google.api.services.gmail.Gmail;
+import com.google.api.services.gmail.model.Message;
+
+import java.io.IOException;
+import java.util.Properties;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -77,7 +88,7 @@ public class SendEmail extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         
-        String email = request.getParameter("email");
+        String to = request.getParameter("email");
         String subject = request.getParameter("subject");
         String message = request.getParameter("message");
         
@@ -85,8 +96,18 @@ public class SendEmail extends HttpServlet {
         String username = "moellerlinds";
         String password = "dont4get?";
         
-        mail.sendMail(email, subject, message, from, username, password);
+        
+            //API
+            URL url = new URL("https://www.googleapis.com/gmail/v1/users/moellerlinds@gmail.com/messages/send");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            //String line = reader.readLine();
     }
+    
+        public class EmailClass {        
+        //mail.sendMail(email, subject, message, from, username, password);
+   } //catch (Exception e) {
+       //     System.out.println(e.getMessage());
+        //}
 
     /**
      * Returns a short description of the servlet.
