@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.Message;
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -51,10 +52,9 @@ public class SendEmail extends HttpServlet {
             out.println("<title>Email sent</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Success</h1>");
-            out.println("<p>Your message was sent successfully</p>");
-            out.println("<p>To send another email, "
-                     + "click <a href='form.jsp'>here</a></p>");
+            out.println("<h1>Congratulations!</h1>");
+            out.println("<p><p>You just sent your first HappE-mail!\n" +
+"            To send another email, click <a href=\"form.jsp\">here</a>!</p></p>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -86,7 +86,7 @@ public class SendEmail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("/success.jsp").forward(request, response);
         
         String to = request.getParameter("email");
         String subject = request.getParameter("subject");
@@ -103,7 +103,9 @@ public class SendEmail extends HttpServlet {
             //String line = reader.readLine();
     }
     
-        public class EmailClass {        
+        public class EmailClass { 
+            
+            
         //mail.sendMail(email, subject, message, from, username, password);
    } //catch (Exception e) {
        //     System.out.println(e.getMessage());

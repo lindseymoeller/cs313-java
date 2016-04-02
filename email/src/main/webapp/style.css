@@ -1,0 +1,91 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Mar 31, 2016, 9:34:16 PM
+    Author     : Lindsey
+*/
+body {
+    background-color: #90c6e5;
+    font-family: 'Corben', cursive;
+    font-size: 16px;
+    line-height: 26px;
+   margin-bottom: 5px;
+    width: 900px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+.right {
+    padding-left: 50px;
+}
+
+.logo {
+    height: 200px;
+    padding-left: 10px;
+    margin-left: 10px;
+}
+ 
+ header {
+     background-color: white;
+     height: 200px;
+     padding-bottom: 10px;
+     padding-top: 10px;
+     text-align: center;
+     width: 900px;
+     display: block;
+     margin-left: auto;
+     margin-right: auto; 
+ }
+ 
+ #right {
+     float: right;
+     display: block;
+     margin-top: 10px;
+     width: 400px;
+     margin-bottom: 50px;
+ }
+ 
+  
+ #left {
+     float: left;
+     display: block;
+     margin-top: 10px;
+     width: 400px;
+ }
+ 
+ footer {
+     clear: both;
+     background-color: white;
+     text-align: center;
+     width: 900px;
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+     margin-top: 50px;
+     padding-top: 5px;
+     height: 30px;
+ }
+ 
+ #form {
+     display: block;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ #open {
+     margin: 50px;
+ }
+ 
+ .open {
+     font-size: 22px;
+     margin-top: 15px;
+ }
+ 
+ .pix {
+     width: 400px;
+    height: auto;
+ }
