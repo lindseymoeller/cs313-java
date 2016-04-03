@@ -18,6 +18,8 @@ import com.google.api.services.gmail.model.Message;
 import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 
 import java.io.IOException;
+import static java.lang.ProcessBuilder.Redirect.from;
+import static java.util.Date.from;
 import java.util.Properties;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -43,21 +45,6 @@ public class SendEmail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-              
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Email sent</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Congratulations!</h1>");
-            out.println("<p><p>You just sent your first HappE-mail!\n" +
-"            To send another email, click <a href=\"form.jsp\">here</a>!</p></p>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,20 +79,19 @@ public class SendEmail extends HttpServlet {
         String subject = request.getParameter("subject");
         String message = request.getParameter("message");
         
-        String from = "moellerlinds@gmail.com";
-        String username = "moellerlinds";
-        String password = "dont4get?";
+        String from = "happemail313@gmail.com";
+        String username = "happemail313";
+        String password = "p0w3rwheel";
         
         
             //API
-            URL url = new URL("https://www.googleapis.com/gmail/v1/users/moellerlinds@gmail.com/messages/send");
+            URL url = new URL("https://www.googleapis.com/gmail/v1/users/happemail313@gmail.com/messages/send");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            //String line = reader.readLine();
+            String line = reader.readLine();
     }
     
         public class EmailClass { 
-            
-            
+           
         //mail.sendMail(email, subject, message, from, username, password);
    } //catch (Exception e) {
        //     System.out.println(e.getMessage());
